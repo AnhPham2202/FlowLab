@@ -1,22 +1,27 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { CssBaseline, Box } from '@mui/material';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import {Overview} from "./page/Overview.tsx";
-import {Header} from "./component/Header.tsx";
+import { Overview } from './page/Overview';
+import { Playground } from './page/Playground';
+import { Header } from './component/Header';
+import KafkaPlayground from './page/KafkaPlayground.tsx';
 
 export default function App() {
-    return (
-        <BrowserRouter>
-            <CssBaseline />
-            <Box sx={{ minHeight: '100vh', backgroundColor: '#070b14' }}>
-                <Header />
+  const hideHeader = location.pathname.startsWith('/playground');
 
-                <Box sx={{ padding: 4 }}>
-                    <Routes>
-                        <Route path="/" element={<Overview />} />
-                    </Routes>
-                </Box>
-            </Box>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <div className="min-h-screen bg-slate-50 text-slate-900">
+        {!hideHeader && <Header />}
+
+        {/* Page content */}
+        <main className={`pt-${hideHeader ? '0' : '24'}`}>
+          <Routes>
+            <Route path="/" element={<Overview />} />
+            <Route path="/playground" element={<Playground />} />
+            <Route path="/kafka" element={<KafkaPlayground />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
+  );
 }

@@ -1,123 +1,112 @@
-import {Box, Typography, Button, Chip, Paper, Grid} from '@mui/material';
-
 export function Overview() {
     return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-                pt: 14,
-                px: 6,
-                background: `
-          radial-gradient(80% 60% at 70% 20%, #1b2340 0%, transparent 60%),
-          linear-gradient(180deg, #05070f, #070b14)
-        `,
-            }}
+        <section
+            className="
+        min-h-screen
+        pt-24
+        px-6 md:px-10
+        bg-[radial-gradient(60%_50%_at_70%_10%,#eef2ff_0%,transparent_60%),linear-gradient(180deg,#f9fafb,#f3f4f6)]
+      "
         >
-            <Grid container alignItems="center" spacing={6}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-14 items-center">
                 {/* LEFT */}
-                <Grid size={{ xs: 12, md: 6 }}>
-                    {/* Badges */}
-                    <Box sx={{ display: 'flex', gap: 1, mb: 3 }}>
-                        {['react', 'mui', 'typescript'].map((tech) => (
-                            <Chip
+                <div>
+                    {/* Tech badges */}
+                    <div className="flex gap-2 mb-5">
+                        {["React", "TypeScript", "Tailwind"].map((tech) => (
+                            <span
                                 key={tech}
-                                label={tech}
-                                size="small"
-                                sx={{
-                                    background: 'rgba(255,255,255,0.06)',
-                                    color: 'rgba(255,255,255,0.8)',
-                                    border: '1px solid rgba(255,255,255,0.08)',
-                                }}
-                            />
+                                className="
+                  px-3 py-1 rounded-full text-sm font-medium
+                  bg-indigo-50 text-indigo-600
+                  border border-indigo-100
+                "
+                            >
+                {tech}
+              </span>
                         ))}
-                    </Box>
+                    </div>
 
                     {/* Title */}
-                    <Typography
-                        sx={{
-                            fontSize: 64,
-                            fontWeight: 800,
-                            lineHeight: 1.05,
-                            color: '#fff',
-                        }}
+                    <h1
+                        className="
+              text-4xl md:text-6xl
+              font-extrabold leading-tight
+              text-[var(--text-primary)]
+            "
                     >
-                        Hello, I&apos;m
+                        Design systems.
                         <br />
-                        <Box
-                            component="span"
-                            sx={{
-                                background:
-                                    'linear-gradient(90deg, #8aa2ff, #6c7cff)',
-                                WebkitBackgroundClip: 'text',
-                                WebkitTextFillColor: 'transparent',
-                            }}
+                        <span
+                            className="
+                gradient-primary
+                bg-clip-text text-transparent
+              "
                         >
-                            FlowLab.
-                        </Box>
-                    </Typography>
+              Understand deeply.
+            </span>
+                    </h1>
 
                     {/* Description */}
-                    <Typography
-                        sx={{
-                            mt: 3,
-                            maxWidth: 460,
-                            color: 'rgba(255,255,255,0.7)',
-                            fontSize: 16,
-                        }}
+                    <p
+                        className="
+              mt-4 max-w-xl
+              text-[var(--text-secondary)]
+            "
                     >
-                        Interactive system design playgrounds for interview
-                        preparation. Kafka, Spring Security, distributed
-                        architectures.
-                    </Typography>
+                        FlowLab is an interactive playground to visualize and experiment
+                        with system design concepts commonly asked in interviews — Kafka,
+                        Spring Security, and distributed architectures.
+                    </p>
 
                     {/* Actions */}
-                    <Box sx={{ mt: 5, display: 'flex', gap: 2 }}>
-                        <Button
-                            variant="contained"
-                            size="large"
-                            sx={{
-                                px: 4,
-                                background:
-                                    'linear-gradient(90deg, #6c7cff, #8aa2ff)',
-                            }}
+                    <div className="mt-7 flex gap-3">
+                        <a
+                            href="/playground"
+                            className="
+                px-6 py-3 rounded-xl
+                font-semibold text-white
+                gradient-primary
+                gradient-primary-hover
+                shadow-primary
+                transition
+              "
                         >
                             Get started
-                        </Button>
+                        </a>
 
-                        <Button
-                            size="large"
-                            sx={{
-                                px: 4,
-                                color: '#fff',
-                                border: '1px solid rgba(255,255,255,0.2)',
-                            }}
+                        <button
+                            className="
+                px-6 py-3 rounded-xl
+                font-semibold
+                bg-[var(--bg-card)]
+                text-[var(--text-secondary)]
+                border border-[var(--border-soft)]
+                shadow-primary
+                hover:bg-slate-50
+                transition
+              "
                         >
                             Learn more
-                        </Button>
-                    </Box>
-                </Grid>
+                        </button>
+                    </div>
+                </div>
 
                 {/* RIGHT */}
-                <Grid size={{ xs: 12, md: 6 }}>
-                    <Paper
-                        sx={{
-                            height: 420,
-                            borderRadius: 4,
-                            background:
-                                'linear-gradient(180deg, #0d1020, #05070f)',
-                            border: '1px solid rgba(255,255,255,0.08)',
-                            boxShadow: '0 40px 80px rgba(0,0,0,0.6)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            color: 'rgba(255,255,255,0.4)',
-                        }}
-                    >
-                        {/* Sau này thay bằng image / canvas / ReactFlow preview */}
-                        Playground Preview
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Box>
+                <div
+                    className="
+            h-[420px]
+            rounded-2xl
+            bg-[var(--bg-card)]
+            border border-[var(--border-light)]
+            shadow-[var(--shadow-card)]
+            flex items-center justify-center
+            text-[var(--text-muted)]
+          "
+                >
+                    Playground Preview
+                </div>
+            </div>
+        </section>
     );
 }

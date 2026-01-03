@@ -1,46 +1,66 @@
-import { AppBar, Toolbar, Box, Typography, Button } from '@mui/material';
+import {Link} from "react-router-dom";
 
 export function Header() {
-    return (
-        <AppBar
-            position="fixed"
-            elevation={0}
-            sx={{
-                background: 'transparent',
-                backdropFilter: 'blur(8px)',
-            }}
+  return (
+    <header
+      className="
+        fixed top-0 inset-x-0 z-50
+        h-24
+        bg-white/90 backdrop-blur-xl
+        border-b border-[var(--border-light)]
+      "
+    >
+      <div className="h-full px-6 md:px-10 flex items-center">
+        {/* Logo */}
+        <Link
+          to="/"
+          className="
+            text-xl font-extrabold
+            text-[var(--text-primary)]
+            mr-10
+          "
         >
-            <Toolbar sx={{ px: 6 }}>
-                {/* Logo */}
-                <Typography
-                    sx={{
-                        fontWeight: 700,
-                        letterSpacing: 1,
-                        color: '#fff',
-                    }}
-                >
-                    wendo
-                </Typography>
+          FlowLab
+        </Link>
 
-                <Box sx={{ flexGrow: 1 }} />
+        {/* Navigation */}
+        <nav className="flex gap-5 flex-1">
+          {[
+            {label: "Overview", to: "/"},
+            {label: "Kafka", to: "/playground"},
+            {label: "Spring Security", to: "/playground"},
+            {label: "Distributed", to: "/playground"},
+          ].map((item) => (
+            <Link
+              key={item.label}
+              to={item.to}
+              className="
+                font-medium
+                text-[var(--text-secondary)]
+                hover:text-[var(--text-primary)]
+                transition
+              "
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
 
-                {/* Nav */}
-                <Box sx={{ display: 'flex', gap: 3 }}>
-                    {['home', 'about', 'projects', 'services'].map((item) => (
-                        <Button
-                            key={item}
-                            sx={{
-                                color: 'rgba(255,255,255,0.7)',
-                                textTransform: 'none',
-                                fontSize: 14,
-                                '&:hover': { color: '#fff' },
-                            }}
-                        >
-                            {item}
-                        </Button>
-                    ))}
-                </Box>
-            </Toolbar>
-        </AppBar>
-    );
+        {/* CTA */}
+        <Link
+          to="/playground"
+          className="
+            px-5 py-2.5 rounded-xl
+            font-semibold text-white
+            gradient-primary
+            gradient-primary-hover
+            shadow-primary
+            transition
+          "
+        >
+          Get started
+        </Link>
+      </div>
+    </header>
+  );
 }
