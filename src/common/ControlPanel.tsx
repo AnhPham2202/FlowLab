@@ -20,7 +20,7 @@ interface ReusableSidebarProps {
   accentColor?: string; // Optional: e.g., 'from-blue-500 to-cyan-500'
 }
 
-export const Sidebar = ({
+export const ControlPanel = ({
   title,
   subtitle,
   sections,
@@ -135,4 +135,4 @@ export const Sidebar = ({
     </aside>
   );
 };
-export default Sidebar;
+export default ControlPanel;

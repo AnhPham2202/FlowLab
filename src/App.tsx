@@ -18,7 +18,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Overview />} />
             <Route path="/playground" element={<Playground />} />
-            <Route path="/kafka" element={<KafkaPlayground />} />
+            <Route path="/playground/kafka" element={<KafkaPlayground />} />
           </Routes>
         </main>
       </div>

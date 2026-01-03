@@ -1,17 +1,21 @@
-import PartitionNode from '../component/PartitionNode.tsx';
-import type { NodeTypes } from '@xyflow/react';
-import { TextUpdaterNode } from '../component/TextUpdaterNode.tsx';
+import ProducerNode, {
+  type ProducerNodeModel,
+} from '../component/ProducerNode.tsx';
+import OtherNode, { type OtherNodeModel } from '../component/OtherNode.tsx';
 
-export enum KafkaNodeType {
-  CLUSTER = 'cluster',
-  BROKER = 'broker',
-  TOPIC = 'topic',
-  PARTITION = 'partition',
-  PRODUCER = 'producer',
-  CONSUMER = 'consumer',
+export enum KafkaNodeTypeEnum {
+  CLUSTER = 'kafka:cluster',
+  BROKER = 'kafka:broker',
+  TOPIC = 'kafka:topic',
+  PARTITION = 'kafka:partition',
+  CONSUMER = 'kafka:consumer',
+  PRODUCER = 'kafka:producer',
+  OTHER = 'kafka:other',
 }
 
-export const nodeTypes: NodeTypes = {
-  partition: PartitionNode,
-  textUpdater: TextUpdaterNode,
+export type KafkaNodeModel = OtherNodeModel | ProducerNodeModel;
+
+export const kafkaNodeTypes = {
+  [KafkaNodeTypeEnum.PRODUCER]: ProducerNode,
+  [KafkaNodeTypeEnum.OTHER]: OtherNode,
 };

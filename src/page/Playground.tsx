@@ -1,32 +1,35 @@
 import { useState } from 'react';
-import {
-  Background,
-  Controls,
-  type Edge,
-  type Node,
-  ReactFlow,
-} from '@xyflow/react';
+import { Background, Controls, type Edge, ReactFlow } from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
-import { TextUpdaterNode } from '../component/TextUpdaterNode.tsx';
-import Sidebar, { type SidebarSection } from '../common/Sidebar.tsx';
+import ControlPanel from '../common/ControlPanel.tsx';
 import {
-  Database,
-  HardDrive,
-  Layers,
-  Send,
-  Server,
-  Settings2,
-  Share2,
-  UserCheck,
-} from 'lucide-react';
+  type KafkaNodeModel,
+  KafkaNodeTypeEnum,
+  kafkaNodeTypes,
+} from '../type/nodeTypes.ts';
+import { KAFKA_CONTROL_PANEL_CONFIG } from '../common/constants.ts';
 
-const initialNodes: Node[] = [
+const initialNodes: KafkaNodeModel[] = [
   {
-    id: 'node-1',
-    type: 'textUpdater',
-    position: { x: 0, y: 0 },
-    data: { value: 123 },
+    id: 'p-2',
+    type: KafkaNodeTypeEnum.OTHER,
+    position: { x: 100, y: 100 },
+    data: {
+      name1: 'Order Producer',
+      topic1: 'order.created',
+      messagesPerSec1: 120,
+    },
+  },
+  {
+    id: 'p-1',
+    type: KafkaNodeTypeEnum.PRODUCER,
+    position: { x: 200, y: 100 },
+    data: {
+      name: 'Order Producer',
+      topic: 'order.created',
+      messagesPerSec: 120,
+    },
   },
 ];
 const initialEdges: Edge[] = [
@@ -36,70 +39,28 @@ const initialEdges: Edge[] = [
     target: 'n2',
   },
 ];
-const rfStyle = {
-  backgroundColor: '#B8CEFF',
-};
 
-const nodeTypes = { textUpdater: TextUpdaterNode };
 export function Playground() {
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
+  const [nodes, setNodes] = useState<KafkaNodeModel[]>(initialNodes);
   const [edges, _setEdges] = useState<Edge[]>(initialEdges);
 
-  const addKafkaNode = () => {
-    const id = `node-${nodes.length + 1}-${Date.now()}`;
-    setNodes([
-      ...nodes,
-      {
-        id,
-        type: 'textUpdater',
-        position: { x: Math.random() * 300, y: Math.random() * 300 },
-        data: { value: 123 },
-      },
-    ]);
-  };
+  const addKafkaNode = () => {};
 
-  const KAFKA_CONFIG: SidebarSection[] = [
-    {
-      title: 'Infrastructure',
-      items: [
-        { id: 'cluster', label: 'Cluster', icon: Server },
-        { id: 'broker', label: 'Broker', icon: HardDrive },
-        { id: 'zookeeper', label: 'ZooKeeper/KRaft', icon: Settings2 },
-      ],
-    },
-    {
-      title: 'Data',
-      items: [
-        { id: 'topic', label: 'Topic', icon: Layers },
-        { id: 'partition', label: 'Partition', icon: Database },
-        { id: 'schema', label: 'Schema Registry', icon: Share2 },
-      ],
-    },
-    {
-      title: 'Clients',
-      items: [
-        { id: 'producer', label: 'Producer', icon: Send },
-        { id: 'consumer', label: 'Consumer', icon: UserCheck },
-        { id: 'consumer-group', label: 'Consumer Group', icon: UserCheck },
-      ],
-    },
-  ];
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
-      <Sidebar
+      <ControlPanel
         title="KAFKA"
         subtitle="Kafka playground"
-        sections={KAFKA_CONFIG}
+        sections={KAFKA_CONTROL_PANEL_CONFIG}
         onAddNode={addKafkaNode}
-        accentColor="from-green-500 to-emerald-600"
+        accentColor="from-indigo-500 to-purple-500"
       />
 
       <div style={{ flex: 1, height: '100%' }}>
         <ReactFlow
           nodes={nodes}
           edges={edges}
-          nodeTypes={nodeTypes}
-          style={rfStyle}
+          nodeTypes={kafkaNodeTypes}
           fitView
         >
           <Background />

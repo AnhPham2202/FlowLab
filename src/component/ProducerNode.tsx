@@ -1,19 +1,28 @@
-import type { KafkaNodeData } from '../type/nodes.ts';
-import { Handle, Position } from '@xyflow/react';
+import type {Node, NodeProps} from '@xyflow/react';
+import {KafkaNodeTypeEnum} from '../type/nodeTypes.ts';
 
-type Props = { data: KafkaNodeData };
+export type ProducerData = {
+  name: string;
+  topic: string;
+  messagesPerSec?: number;
+};
+export type ProducerNodeModel = Node<ProducerData, KafkaNodeTypeEnum.PRODUCER>;
 
-export default function ProducerNode({ data }: Props) {
+function ProducerNode({ data, selected }: NodeProps<ProducerNodeModel>) {
   return (
-    <div className="kafka-node">
-      <Handle type="source" position={Position.Right} />
-      <div className="node-title">Producer</div>
-      <div className="node-meta">{data.idLabel}</div>
-      <div style={{ height: 6 }} />
-      <div style={{ fontSize: 12, color: '#9ca3af' }}>
-        Acks: {data.details?.acks ?? 'all'}
+    <div
+      className={`rounded-lg border bg-white p-3 shadow-sm ${
+        selected ? 'border-blue-500' : 'border-slate-300'
+      }`}
+    >
+      <div className="text-sm font-semibold">🚀 Producer</div>
+
+      <div className="mt-2 text-xs text-slate-600">
+        <div>Name: {data.name}</div>
+        <div>Topic: {data.topic}</div>
+        {data.messagesPerSec && <div>Rate: {data.messagesPerSec}/s</div>}
       </div>
-      <Handle type="target" position={Position.Left} />
     </div>
   );
 }
+export default ProducerNode;
