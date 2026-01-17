@@ -116,8 +116,11 @@ export const ControlPanel = ({
                     className="group flex cursor-grab items-center justify-between px-4 py-2 hover:bg-indigo-50/50 active:cursor-grabbing"
                   >
                     <div className="flex items-center gap-3">
-                      <item.icon size={14} className="text-indigo-500" />
-                      <span className="text-sm font-medium text-slate-700 group-hover:text-indigo-600">
+                      <item.icon
+                        size={14}
+                        className="text-[var(--primary-500)]"
+                      />
+                      <span className="text-sm font-medium text-slate-700 group-hover:text-[var(--primary-600)]">
                         {item.label}
                       </span>
                     </div>

@@ -1,28 +1,34 @@
-import type {Node, NodeProps} from '@xyflow/react';
-import {KafkaNodeTypeEnum} from '../type/nodeTypes.ts';
+import type { Node, NodeProps } from '@xyflow/react';
+import { KafkaNodeTypeEnum } from '../type/nodeTypes.ts';
+import { Send } from 'lucide-react';
+import BaseNode from '../common/BaseNode.tsx';
 
-export type ProducerData = {
+export type ProducerDataModel = {
   name: string;
   topic: string;
-  messagesPerSec?: number;
+  messageTemplate?: string;
 };
-export type ProducerNodeModel = Node<ProducerData, KafkaNodeTypeEnum.PRODUCER>;
+export type ProducerNodeModel = Node<
+  ProducerDataModel,
+  KafkaNodeTypeEnum.PRODUCER
+>;
 
 function ProducerNode({ data, selected }: NodeProps<ProducerNodeModel>) {
   return (
-    <div
-      className={`rounded-lg border bg-white p-3 shadow-sm ${
-        selected ? 'border-blue-500' : 'border-slate-300'
-      }`}
+    <BaseNode
+      selected={selected}
+      icon={<Send size={16} />}
+      title={'Producer'}
+      subtitle={data.name ?? 'Producer'}
     >
-      <div className="text-sm font-semibold">🚀 Producer</div>
+      <p className="mb-2 text-xs text-[var(--text-secondary)]">
+        Sends messages to Kafka
+      </p>
 
-      <div className="mt-2 text-xs text-slate-600">
-        <div>Name: {data.name}</div>
-        <div>Topic: {data.topic}</div>
-        {data.messagesPerSec && <div>Rate: {data.messagesPerSec}/s</div>}
-      </div>
-    </div>
+      <button className="w-full rounded-md bg-[var(--primary-600)] py-1.5 text-xs text-white hover:bg-[var(--primary-700)]">
+        Send message
+      </button>
+    </BaseNode>
   );
 }
 export default ProducerNode;

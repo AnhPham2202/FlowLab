@@ -1,5 +1,11 @@
 import { useState } from 'react';
-import { Background, Controls, type Edge, ReactFlow } from '@xyflow/react';
+import {
+  Background,
+  Controls,
+  type Edge,
+  ReactFlow,
+  useNodesState,
+} from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
 import ControlPanel from '../common/ControlPanel.tsx';
@@ -28,10 +34,10 @@ const initialNodes: KafkaNodeModel[] = [
     data: {
       name: 'Order Producer',
       topic: 'order.created',
-      messagesPerSec: 120,
     },
   },
 ];
+
 const initialEdges: Edge[] = [
   {
     id: 'n1-n2',
@@ -41,7 +47,8 @@ const initialEdges: Edge[] = [
 ];
 
 export function KafkaPlayground() {
-  const [nodes, _setNodes] = useState<KafkaNodeModel[]>(initialNodes);
+  const [nodes, _setNodes, onNodesChange] =
+    useNodesState<KafkaNodeModel>(initialNodes);
   const [edges, _setEdges] = useState<Edge[]>(initialEdges);
 
   const addKafkaNode = () => {};
@@ -60,6 +67,7 @@ export function KafkaPlayground() {
         <ReactFlow
           nodes={nodes}
           edges={edges}
+          onNodesChange={onNodesChange}
           nodeTypes={kafkaNodeTypes}
           fitView
         >
@@ -70,4 +78,5 @@ export function KafkaPlayground() {
     </div>
   );
 }
+
 export default KafkaPlayground;
